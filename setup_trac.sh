@@ -3,7 +3,9 @@
 setup_apache() {
     sed -i '128s_.*_ErrorLog /dev/stderr_' /etc/apache2/apache2.conf
     sed -i '129s_.*_TransferLog /dev/stdout_' /etc/apache2/apache2.conf
-    echo -e "<VirtualHost *:80>\n\tServerName trac.local\n\tDocumentRoot $TRAC_DIR/htdocs/\n\tWSGIScriptAlias / $TRAC_DIR/cgi-bin/trac.wsgi\n\n\t<Directory $TRAC_DIR/cgi-bin>\n\t\tWSGIApplicationGroup %{GLOBAL}\n\t\t<IfModule mod_authz_core.c>\n\t\t\tRequire all granted\n\t\t</IfModule>\n\t</Directory>\n</VirtualHost>" > /etc/apache2/sites-enabled/000-default.conf
+    if [ ! -f /etc/apache2/sites-enabled/000-default.conf ]; then
+	echo -e "<VirtualHost *:80>\n\tServerName trac.local\n\tDocumentRoot $TRAC_DIR/htdocs/\n\tWSGIScriptAlias / $TRAC_DIR/cgi-bin/trac.wsgi\n\n\t<Directory $TRAC_DIR/cgi-bin>\n\t\tWSGIApplicationGroup %{GLOBAL}\n\t\t<IfModule mod_authz_core.c>\n\t\t\tRequire all granted\n\t\t</IfModule>\n\t</Directory>\n</VirtualHost>" > /etc/apache2/sites-enabled/000-default.conf
+    fi
 }
 
 setup_components() {
@@ -34,8 +36,7 @@ setup_admin_user() {
 
 setup_trac() {
     [ ! -d /trac ] && mkdir /trac
-    if [ ! -f /trac/VERSION ]
-    then
+    if [ ! -f /trac/VERSION ]; then
 	trac-admin $TRAC_DIR initenv $TRAC_PROJECT_NAME $DB_LINK
 	trac-admin $TRAC_DIR deploy /tmp/trac > /dev/null 2>&1
 	echo "Trac Apache Deploy..."
@@ -57,17 +58,7 @@ setup_trac() {
     fi
 }
 
-clean_house() {
-    if [ -d /.setup_trac.sh ] && [ -d /.setup_trac_config.sh ]
-    then
-        rm -v /.setup_trac.sh
-        rm -v /.setup_trac_config.sh
-    fi
-}
-
 echo "Setup trac"
 setup_trac
 echo "Setup apache"
 setup_apache
-echo "Clean house"
-clean_house

@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y pwgen git-core trac \
     supervisor apache2-utils apache2 libapache2-mod-wsgi python-pip python-mysqldb && \
     apt-get -y clean && rm -rf /var/lib/apt/lists/*
 
+RUN rm /etc/apache2/sites-enabled/000-default.conf
 ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
 ADD apache_start.sh /
 ADD trac_logo.png /var/www/trac_logo.png
