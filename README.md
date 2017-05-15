@@ -23,14 +23,6 @@ The Dockerfile comes with a number of environment variables that can be set at b
     $ cd trac-docker-ubuntu
     $ docker build -t trac ./
     ```
-    
-* Build it for use with a MySQL database
-
-    ```ssh
-    $ git clone https://github.com/mastermindg/trac-docker-ubuntu
-    $ cd trac-docker-ubuntu
-    $ docker build -t trac --build-arg DB_LINK="mysql://trac:trac@mysql:3306/trac" .
-    ``` 
 
 * just pull it from Dockerhub
 
@@ -96,6 +88,14 @@ Most of below
         Given the caveats and known issues surrounding MySQL,
         read the [MySqlDb](https://trac.edgewall.org/intertrac/MySqlDb) page
         before creating the database.
+        
+        * Build it for use with a MySQL database
+
+    ```ssh
+    $ git clone https://github.com/mastermindg/trac-docker-ubuntu
+    $ cd trac-docker-ubuntu
+    $ docker build -t trac --build-arg DB_LINK="mysql://trac:trac@mysql:3306/trac" .
+    ``` 
 
 
 This can be run off of a mount to persist the data:
