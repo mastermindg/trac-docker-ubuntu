@@ -1,8 +1,8 @@
 # trac-docker
 
-[![](https://images.microbadger.com/badges/version/mastermindg/trac.svg)](https://hub.docker.com/r/mastermindg/trac/ "Get your own version badge on microbadger.com")
-[![](https://images.microbadger.com/badges/image/mastermindg/trac.svg)](https://hub.docker.com/r/mastermindg/trac/)
-[![Docker Hub](http://img.shields.io/docker/pulls/mastermindg/trac.svg)](https://hub.docker.com/r/mastermindg/trac/)
+[![](https://images.microbadger.com/badges/version/mastermindg/trac-ubuntu.svg)](https://hub.docker.com/r/mastermindg/trac-ubuntu/ "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/mastermindg/trac-ubuntu.svg)](https://hub.docker.com/r/mastermindg/trac-ubuntu/)
+[![Docker Hub](http://img.shields.io/docker/pulls/mastermindg/trac-ubuntu.svg)](https://hub.docker.com/r/mastermindg/trac-ubuntu/)
 
 This repo is used to host a bunldle to create a docker container (based on
 Ubuntu Trusty) running [Trac](http://trac.edgewall.org),
