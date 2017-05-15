@@ -91,11 +91,17 @@ Most of below
         
         * Build it for use with a MySQL database
 
-    ```ssh
-    $ git clone https://github.com/mastermindg/trac-docker-ubuntu
-    $ cd trac-docker-ubuntu
-    $ docker build -t trac --build-arg DB_LINK="mysql://trac:trac@mysql:3306/trac" .
-    ``` 
+        ```ssh
+        $ git clone https://github.com/mastermindg/trac-docker-ubuntu
+        $ cd trac-docker-ubuntu
+        $ docker build -t trac --build-arg DB_LINK="mysql://trac:trac@mysql:3306/trac" .
+        ``` 
+        OR
+        * Run it with a MySQL Database
+        ```ssh
+        $ docker run -d -p 80:80 --name trac -e DB_LINK="mysql://trac:trac@mysql:3306/trac" mastermindg/trac-ubuntu
+        ``` 
+        
 
 
 This can be run off of a mount to persist the data:
