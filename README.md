@@ -1,32 +1,41 @@
 # trac-docker
 
-[![](https://images.microbadger.com/badges/version/stephenhsu/trac.svg)](https://hub.docker.com/r/stephenhsu/trac/ "Get your own version badge on microbadger.com")
-[![](https://images.microbadger.com/badges/image/stephenhsu/trac.svg)](https://hub.docker.com/r/stephenhsu/trac/)
-[![Docker Hub](http://img.shields.io/docker/pulls/stephenhsu/trac.svg)](https://hub.docker.com/r/stephenhsu/trac/)
+[![](https://images.microbadger.com/badges/version/mastermindg/trac.svg)](https://hub.docker.com/r/mastermindg/trac/ "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/mastermindg/trac.svg)](https://hub.docker.com/r/mastermindg/trac/)
+[![Docker Hub](http://img.shields.io/docker/pulls/mastermindg/trac.svg)](https://hub.docker.com/r/mastermindg/trac/)
 
 This repo is used to host a bunldle to create a docker container (based on
-Ubuntu Xenial) running [Trac](http://trac.edgewall.org),
+Ubuntu Trusty) running [Trac](http://trac.edgewall.org),
 which is an enhanced wiki and issue tracking system for software development
 projects. Trac uses a minimalistic approach to web-based software project
 management. It helps developers write great software while staying out of
 the way. Trac should impose as little as possible on a team's established
 development process and policies.
 
+The Dockerfile comes with a number of environment variables that can be set at build time or at run time.
 
 # How to get the image
 
 * Build it using Dockerfile
 
     ```ssh
-    $ git clone https://github.com/dixudx/trac-docker
-    $ cd trac-docker
+    $ git clone https://github.com/mastermindg/trac-docker-ubuntu
+    $ cd trac-docker-ubuntu
     $ docker build -t trac ./
     ```
+    
+* Build it for use with a MySQL database
+
+    ```ssh
+    $ git clone https://github.com/mastermindg/trac-docker-ubuntu
+    $ cd trac-docker-ubuntu
+    $ docker build -t trac --build-arg DB_LINK="mysql://trac:trac@mysql:3306/trac" .
+    ``` 
 
 * just pull it from Dockerhub
 
     ```
-    $ docker pull stephenhsu/trac
+    $ docker pull mastermindg/trac-ubuntu
     ```
 
 
@@ -37,11 +46,11 @@ development process and policies.
 Just run
 
 ```
-$ docker run -d -p 8123:8123 --name my_trac stephenhsu/trac
+$ docker run -d -p 80:80 --name my_trac mastermindg/trac-ubuntu
 ```
 
 After several seconds, you can visit the web page at
-<http://localhost:8123>
+<http://localhost>
 
 ## Environment Variables Explanations
 
@@ -51,7 +60,7 @@ Most of below
 
     the admin username of Trac
 
-* `TRAC_ADMIN_PASSWD` (default is `passw0rd`):
+* `TRAC_ADMIN_PASS` (default is `passw0rd`):
 
     the admin password of Trac
 
@@ -59,7 +68,7 @@ Most of below
 
     the Trac project name
 
-* `TRAC_DIR` (default is `/var/local/trac`):
+* `TRAC_DIR` (default is `/trac`):
 
     This directory stores all the data and configurations. You can bind a volume
     when starting a container.
@@ -89,15 +98,10 @@ Most of below
         before creating the database.
 
 
-## Wants More Secure
-
-This container image is powered by [Apache Web Server](https://httpd.apache.org/).
-You can make your own customizations (such as adding TLS etc.) in
-`./trac.conf` and map to `/etc/apache2/sites-available/trac.conf` when
-starting a container.
+This can be run off of a mount to persist the data:
 
 ```
-$ docker run -d -p 8123:8123 -v ./trac.conf:/etc/apache2/sites-available/trac.conf --name my_trac stephenhsu/trac
+docker run -d --name trac -p 80:80 -v /home/me/trac:/trac -e TRAC_PROJECT_NAME=custom_name mastermindg/trac-ubuntu
 ```
 
 # Reference
