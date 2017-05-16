@@ -11,6 +11,7 @@ setup_apache() {
 setup_components() {
     trac-admin $TRAC_DIR config set components tracopt.versioncontrol.git.* enabled
     trac-admin $TRAC_DIR config set components trac.web.auth.LoginModule disabled
+    trac-admin $TRAC_DIR config set components acct_mgr.adauth enabled
     trac-admin $TRAC_DIR config set components acct_mgr.web_ui.* enabled
     trac-admin $TRAC_DIR config set components acct_mgr.admin.* enabled
     trac-admin $TRAC_DIR config set components acct_mgr.register.* enabled
