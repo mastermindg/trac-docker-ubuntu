@@ -1,18 +1,17 @@
-# trac-docker
+# trac-ubuntu
 
 [![](https://images.microbadger.com/badges/version/mastermindg/trac-ubuntu.svg)](https://hub.docker.com/r/mastermindg/trac-ubuntu/ "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/image/mastermindg/trac-ubuntu.svg)](https://hub.docker.com/r/mastermindg/trac-ubuntu/)
 [![Docker Hub](http://img.shields.io/docker/pulls/mastermindg/trac-ubuntu.svg)](https://hub.docker.com/r/mastermindg/trac-ubuntu/)
 
-This repo is used to host a bunldle to create a docker container (based on
-Ubuntu Trusty) running [Trac](http://trac.edgewall.org),
+This repo builds a Docker container (based on Ubuntu Trusty) running [Trac](http://trac.edgewall.org),
 which is an enhanced wiki and issue tracking system for software development
 projects. Trac uses a minimalistic approach to web-based software project
 management. It helps developers write great software while staying out of
 the way. Trac should impose as little as possible on a team's established
 development process and policies.
 
-The Dockerfile comes with a number of environment variables that can be set at build time or at run time.
+This installation of Trac uses AccountManager with LoginModule to allow logging in via the Web UI versus logging in with basic HTTP authentication. Eventually extensions will be added to enable LDAP and other forms of authentication.
 
 # How to get the image
 
@@ -43,6 +42,8 @@ $ docker run -d -p 80:80 --name my_trac mastermindg/trac-ubuntu
 
 After several seconds, you can visit the web page at
 <http://localhost>
+
+The Dockerfile comes with a number of environment variables that can be set at build time or at run time:
 
 ## Environment Variables Explanations
 
