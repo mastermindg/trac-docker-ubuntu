@@ -25,6 +25,7 @@ setup_components() {
 setup_accountmanager() {
     trac-admin $TRAC_DIR config set account-manager authentication_url "/authFile"
     trac-admin $TRAC_DIR config set account-manager password_store HttpAuthStore
+    trac-admin $TRAC_DIR config set account-manager verify_email false
 }
 
 # admin username and admin password are the function arguments
