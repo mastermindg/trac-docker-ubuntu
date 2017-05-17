@@ -34,11 +34,14 @@ setup_admin_user() {
     trac-admin /trac session add admin $TRAC_ADMIN_NAME root@localhost
     trac-admin /trac permission add $TRAC_ADMIN_NAME TRAC_ADMIN
     htpasswd -b -c /trac/.htpasswd $TRAC_ADMIN_NAME $TRAC_ADMIN_PASS
+    echo -e "\tUser Setup...$TRAC_ADMIN_NAME $TRAC_ADMIN_PASS"
 }
 
 setup_trac() {
     [ ! -d /trac ] && mkdir /trac
     if [ ! -f /trac/VERSION ]; then
+	echo -e "\tTrac is not installed...so installing!"
+	ls -altr /trac/VERSION
 	trac-admin $TRAC_DIR initenv $TRAC_PROJECT_NAME $DB_LINK
 	trac-admin $TRAC_DIR deploy /tmp/trac > /dev/null 2>&1
 	echo "Trac Apache Deploy..."
@@ -53,10 +56,13 @@ setup_trac() {
         setup_components
 	echo "Setup Account Manager"
         setup_accountmanager
+	echo "Create user"
 	setup_admin_user
 	trac-admin /trac config set logging log_type stderr
         [ -f /var/www/trac_logo.png ] && cp -v /var/www/trac_logo.png /trac/htdocs/your_project_logo.png
 	chown -R www-data:www-data $TRAC_DIR
+    else
+	echo -e "\tTrac is already installed so not going to do anything"
     fi
 }
 
