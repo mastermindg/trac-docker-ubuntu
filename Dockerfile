@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y pwgen git-core trac \
     trac-git trac-accountmanager trac-customfieldadmin trac-xmlrpc \ 
     trac-wikiprint trac-wysiwyg trac-mastertickets trac-tags \
     trac-diavisview trac-announcer trac-graphviz python-flup \
-    supervisor apache2-utils apache2 libapache2-mod-wsgi python-pip python-mysqldb && \
+    supervisor apache2-utils apache2 libapache2-mod-wsgi python-pip \
+    python-mysqldb libpq-dev python-dev && \
     apt-get -y clean && rm -rf /var/lib/apt/lists/*
 
 RUN pip install psycopg2  # Python bindings for Postgresql
